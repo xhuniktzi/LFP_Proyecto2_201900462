@@ -1,0 +1,56 @@
+digraph G {
+  rankdir=LR;
+  So [shape="circle"];
+  S1 [shape="doublecircle"];
+  S2 [shape="circle"];
+  S3 [shape="circle"];
+  S4 [shape="circle"];
+  S5 [shape="doublecircle"];
+  S6 [shape="doublecircle"];
+  S7 [shape="doublecircle"];
+  S8 [shape="circle"];
+  S9 [shape="doublecircle"];
+  S10 [shape="circle"];
+  S11 [shape="circle"];
+  S12 [shape="doublecircle"];
+  S13 [shape="circle"];
+  S15 [shape="circle"];
+  S16 [shape="circle"];
+  S17 [shape="doublecircle"];
+  
+  So -> S1 [label="L"];
+  So -> S2 [label="#"];
+  So -> S3 [label="'"];
+  So -> S4 [label="''"];
+  So -> S5 [label="D"];
+  So -> S6 [label="S"];
+  
+  S1 -> S1 [label="L"];
+  
+  S2 -> S2 [label="E"];
+  S2 -> S7 [label="\\n"];
+  
+  S3 -> S8 [label="'"];
+  
+  S4 -> S4 [label="L,D,S,\\t,''"];
+  S4 -> S9 [label="''"];
+  
+  S5 -> S5 [label="D"];
+  S5 -> S10 [label="."];
+  
+  S8 -> S11 [label="'"];
+  
+  S10 -> S12 [label="D"];
+  
+  S11 -> S13 [label="E"];
+  
+  S12 -> S12 [label="D"];
+  
+  S13 -> S13 [label="E"];
+  S13 -> S15 [label="'"];
+  
+  
+  S15 -> S16 [label="'"];
+  
+  S16 -> S17 [label="'"];
+}

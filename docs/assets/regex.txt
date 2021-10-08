@@ -1,0 +1,49 @@
+L = letra
+D = digito
+\t = espacio y tabs
+\n = saltar linea
+E = any -> letra, digitos, espacio, tabs, simbolos (no salto de linea)
+
+Claves -> reservada
+Registros -> reservada
+#[L\t]*\n -> comentario one-line
+'''[L\t\n]*''' -> comentario multi-line
+imprimir -> función
+imprimirln -> función
+conteo -> función
+promedio -> función
+contarsi -> función
+datos -> función
+sumar -> función
+max -> función
+min -> función
+exportarReporte -> función
+"[L\t]*" -> string
+D+ -> numero entero
+D+.D+ -> numero double
+; -> semicolon
+, -> comma
+( -> parentesis abierto
+) -> parentesis cerrado
+= -> equals
+[ -> corchete apertura
+] -> corchete cerrado
+{ -> llave apertura
+} -> llave cerrado
+
+Notas: not case sensitive
+
+grouping:
+
+L+ -> función (validar con if in)
+L+ -> reservada (validar con if in)
+
+[func + reservada] -> todo como reservada -> L+
+
+[;,()=[]{}] -> simbolos -> S
+
+Regex final (usando $ como indicador de estado de aceptación):
+(L+$|#E*\n$|'''(E|\n)*'''$|"(L|D|S|\t)*"$|D+$|D+.D+$|S$)
+
+equivalente a:
+(reservada|comentario one-line|comentario multi-line|string|integer|double|simbolos)
