@@ -47,3 +47,20 @@ Regex final (usando $ como indicador de estado de aceptación):
 
 equivalente a:
 (reservada|comentario one-line|comentario multi-line|string|integer|double|simbolos)
+
+reservada:
+    variables:
+        claves, registros
+
+    funciones:
+        imprImir, imprimirln, conteo, promedio, contarsi, datos, sumar, max, min, exportarReporte
+
+simbolos:
+    punto_coma, coma, igual, parentesis_abrir, parentesis_cerrar, corchete_abrir, corchete_cerrar, llave_abrir, llave_cerrar
+
+string
+integer
+double
+
+comentario_one_line
+comentario_multi_line

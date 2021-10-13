@@ -1,0 +1,67 @@
+<inicio> ::=  <claves> <repetir>
+    |       <registros> <repetir>
+    |       <imprimir> <repetir>
+    |       <imprimirln> <repetir>
+    |       <conteo> <repetir>
+    |       <promedio> <repetir>
+    |       <contarsi> <repetir>
+    |       <datos> <repetir>
+    |       <sumar> <repetir>
+    |       <max> <repetir>
+    |       <min> <repetir>
+    |       <exportar_reporte> <repetir>
+    |       tk_comentario_one_line <repetir>
+            tk_comentario_multi_line <repetir>
+
+<repetir> ::= <claves> <repetir>
+    |       <registros> <repetir>
+    |       <imprimir> <repetir>
+    |       <imprimirln> <repetir>
+    |       <conteo> <repetir>
+    |       <promedio> <repetir>
+    |       <contarsi> <repetir>
+    |       <datos> <repetir>
+    |       <sumar> <repetir>
+    |       <max> <repetir>
+    |       <min> <repetir>
+    |       <exportar_reporte> <repetir>
+    |       tk_comentario_one_line <repetir>
+    |       tk_comentario_multi_line <repetir>
+    |       epsilon
+
+<clave> ::= tk_clave tk_igual tk_abrir_corchete <bloque_claves> tk_cerrar_corchete
+<registros> ::= tk_clave tk_igual tk_abrir_corchete <bloque_registros> tk_cerrar_corchete
+
+<imprimir> ::= tk_imprimir tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+<imprimirln> ::= tk_imprimirln tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+<conteo> ::= tk_conteo tk_abrir_parentesis tk_cerrar_parentesis tk_punto_coma
+<promedio> ::= tk_promedio tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+
+<contarsi> ::= tk_contarsi tk_abrir_parentesis tk_string <valor> tk_cerrar_parentesis tk_punto_coma
+
+<datos> ::= tk_datos tk_abrir_parentesis tk_cerrar_parentesis tk_punto_coma
+<sumar> ::= tk_sumar tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+<max> ::= tk_max tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+<min> ::= tk_min tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+<exportar_reporte> ::= tk_promedio tk_abrir_parentesis tk_string tk_cerrar_parentesis tk_punto_coma
+
+<valor> ::= tk_string
+    |       tk_double
+    |       tk_integer
+
+<bloque_claves> ::= tk_string  tk_coma <bloque_claves>
+    |               tk_string
+
+<bloque_registros> ::=  <cuerpo_registros> <bloque_registros>
+    |                   <cuerpo_registros>
+
+<cuerpo_registros> ::= tk_abrir_llave <valores_registros> tk_cerrar_llave
+
+<valores_registros> ::= <valor> tk_coma <valores_registros>
+    |                   <valor>
+
+
+
+
+
+

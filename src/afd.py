@@ -22,6 +22,7 @@ def automata(input: str):
         char = input[index]
 
         if state == 0:
+
             if L.search(char):
                 state = 1
                 index += 1
@@ -56,6 +57,7 @@ def automata(input: str):
                 index += 1
 
         elif state == 1:
+
             if L.search(char):
                 index += 1
                 col += 1
@@ -65,6 +67,7 @@ def automata(input: str):
                 lex = ''
                 state = 0
         elif state == 2:
+
             if re.search(r"[\n]", char):
                 state = 7
                 index += 1
@@ -83,23 +86,26 @@ def automata(input: str):
                 row += 1
                 lex += char
         elif state == 3:
+
             if re.search(r"[']", char):
                 state = 8
                 index += 1
                 col += 1
                 lex += char
         elif state == 4:
-            if L.search(char) or D.search(char) or \
-                S.search(char) or T.search(char):
-                index += 1
-                col += 1
-                lex += char
-            elif re.search(r'["]', char):
+
+            if re.search(r'["]', char):
                 state = 9
                 index += 1
                 col += 1
                 lex += char
+            elif E.search(char) or re.search(r"[']", char):
+                index += 1
+                col += 1
+                lex += char
+
         elif state == 5:
+
             if re.search(r'[.]', char):
                 state = 10
                 index += 1
@@ -114,32 +120,38 @@ def automata(input: str):
                 lex = ''
                 state = 0
         elif state == 6:
+
             tokens.append(lex)
             lex = ''
             state = 0
         elif state == 7:
+
             tokens.append(lex)
             lex = ''
             col = 1
             row += 1
             state = 0
         elif state == 8:
+
             if re.search(r"[']", char):
                 state = 11
                 index += 1
                 col += 1
                 lex += char
         elif state == 9:
+
             tokens.append(lex)
             lex = ''
             state = 0
         elif state == 10:
+
             if D.search(char):
                 state = 12
                 index += 1
                 col += 1
                 lex += char
         elif state == 11:
+
             if E.search(char):
                 state = 13
                 index += 1
@@ -152,6 +164,7 @@ def automata(input: str):
                 row += 1
                 lex += char
         elif state == 12:
+
             if D.search(char):
                 index += 1
                 col += 1
@@ -161,6 +174,7 @@ def automata(input: str):
                 lex = ''
                 state = 0
         elif state == 13:
+
             if E.search(char):
                 index += 1
                 col += 1
@@ -177,6 +191,7 @@ def automata(input: str):
                 lex += char
 
         elif state == 15:
+
             if re.search(r"[']", char):
                 state = 16
                 index += 1
@@ -184,6 +199,7 @@ def automata(input: str):
                 lex += char
 
         elif state == 16:
+
             if re.search(r"[']", char):
                 state = 17
                 index += 1
@@ -191,6 +207,7 @@ def automata(input: str):
                 lex += char
 
         elif state == 17:
+
             tokens.append(lex)
             lex = ''
             state = 0
