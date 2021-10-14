@@ -1,0 +1,32 @@
+from enum import Enum
+
+class TypeToken(Enum):
+    UNKNOWN = 0
+    CLAVES = 1
+    REGISTROS =2
+    IMPRIMIR = 3
+    IMPRIMIRLN = 4
+    CONTEO = 5
+    PROMEDIO = 6
+    CONTARSI = 7
+    DATOS = 8
+    SUMAR = 9
+    MAX = 10
+    MIN = 11
+    EXPORTAR_REPORTE = 12
+    PUNTO_COMA = 13
+    COMA = 14
+    IGUAL = 15
+    PARENTESIS_ABRIR = 16
+    PARENTESIS_CERRAR =17
+    CORCHETE_ABRIR = 18
+    CORCHETE_CERRAR = 19
+    LLAVE_ABRIR = 20
+    LLAVE_CERRAR = 21
+    STRING = 22
+    INTEGER = 23
+    DOUBLE = 24
+    COMENTARIO_ONE_LINE = 25
+    COMENTARIO_MULTI_LINE = 26
+    EOF = 27
+    

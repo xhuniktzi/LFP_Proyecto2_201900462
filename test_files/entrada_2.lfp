@@ -1,0 +1,37 @@
+# Conteo
+imprimirln("/***** ***** ***** Conteo ***** ***** *****\");
+conteo();
+
+# Promedio
+imprimirln("/***** ***** ***** Promedio ***** ***** *****\");
+promedio("stock");
+
+# Contar si
+imprimirln("/***** ***** ***** Contar si ***** ***** *****\");
+contarsi("stock", 0);
+contarsi("stock", 1);
+contarsi("stock", 2)
+
+# Datos
+imprimirln("/***** ***** ***** Datos ***** ***** *****\");
+datos();
+
+# Sumar
+imprimirln("/***** ***** ***** Sumar ***** ***** *****\");
+sumar("stock");
+
+# Max
+imprimirln("/***** ***** ***** Maximo ***** ***** *****\");
+max("precio_venta");
+
+# Min
+imprimirln("/***** ***** ***** Minimo ***** ***** *****\");
+min("precio_compra");
+
+# Exportar reporte
+imprimirln("/***** ***** ***** Exportando Reporte ***** ***** *****\");
+exportarReporte("Reporte HTML de abarrotería");
+
+'''
+	Fin
+'''
