@@ -12,7 +12,7 @@ class Sintactico:
         self.lista.append(TokenEntry(TypeToken.EOF, None, None, None))
         self.preanalisis: TypeToken = self.lista[self.index].token
         self.errors: List[SintaxError] = []
-        
+
     def startup(self):
         self.start()
         return self.errors
@@ -20,20 +20,13 @@ class Sintactico:
     def match(self, tipos_validos: List[TypeToken]):
         if self.preanalisis not in tipos_validos:
             token = self.lista[self.index - 1]
-            # print(
-            #     "Error sintactico en caracter: {}, linea: {}, columna: {}, se esperaba: {}"
-            #     .format(self.lista[self.index - 1].token.name,
-            #             self.lista[self.index - 1].fila,
-            #             self.lista[self.index - 1].col,
-            #             list(map(lambda t: t.name, tipos_validos))))
-            self.errors.append(SintaxError(token.fila, token.col, token.token, tipos_validos))
+            self.errors.append(
+                SintaxError(token.fila, token.col, token.token, tipos_validos))
             self.repetir()
 
         if self.preanalisis != TypeToken.EOF:
             self.index += 1
             self.preanalisis = self.lista[self.index].token
-        # if self.preanalisis == TypeToken.EOF:
-        #     print("Analisis sintactico OK")
 
     def start(self):
         if self.preanalisis == TypeToken.CLAVES:
