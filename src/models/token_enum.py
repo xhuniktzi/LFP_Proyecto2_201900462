@@ -29,4 +29,3 @@ class TypeToken(Enum):
     COMENTARIO_ONE_LINE = 25
     COMENTARIO_MULTI_LINE = 26
     EOF = 27
-    

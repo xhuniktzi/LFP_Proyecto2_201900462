@@ -1,4 +1,5 @@
 from typing import List
+from models.error_entry import SintaxError
 from models.token_enum import TypeToken
 from models.token import TokenEntry
 
@@ -10,22 +11,29 @@ class Sintactico:
         self.lista: List[TokenEntry] = tokens
         self.lista.append(TokenEntry(TypeToken.EOF, None, None, None))
         self.preanalisis: TypeToken = self.lista[self.index].token
-
+        self.errors: List[SintaxError] = []
+        
     def startup(self):
         self.start()
+        return self.errors
 
     def match(self, tipos_validos: List[TypeToken]):
         if self.preanalisis not in tipos_validos:
-            print("Error sintactico {} en: {} {}, se esperaba: {}".format(
-                self.lista[self.index].token.name, self.lista[self.index].fila,
-                self.lista[self.index].col,
-                list(map(lambda t: t.name, tipos_validos))))
+            token = self.lista[self.index - 1]
+            # print(
+            #     "Error sintactico en caracter: {}, linea: {}, columna: {}, se esperaba: {}"
+            #     .format(self.lista[self.index - 1].token.name,
+            #             self.lista[self.index - 1].fila,
+            #             self.lista[self.index - 1].col,
+            #             list(map(lambda t: t.name, tipos_validos))))
+            self.errors.append(SintaxError(token.fila, token.col, token.token, tipos_validos))
+            self.repetir()
 
         if self.preanalisis != TypeToken.EOF:
             self.index += 1
             self.preanalisis = self.lista[self.index].token
-        if self.preanalisis == TypeToken.EOF:
-            print("Analisis sintactico OK")
+        # if self.preanalisis == TypeToken.EOF:
+        #     print("Analisis sintactico OK")
 
     def start(self):
         if self.preanalisis == TypeToken.CLAVES:

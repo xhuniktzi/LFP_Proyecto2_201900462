@@ -7,10 +7,9 @@ from models.token_enum import TypeToken
 
 def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
     # define regex
-    L = re.compile(r'[A-Za-z_-]')
+    L = re.compile(r'[A-Za-z]')
     E = re.compile(r'[^\n\']')
     D = re.compile(r'[0-9]')
-    T = re.compile(r'[\s\n\t]')
     S = re.compile(r'[;,=\(\)\[\]\{\}]')
 
     input += '\n'  # fix EOF error
@@ -60,7 +59,7 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
             # Caracteres ignorados
             elif re.search(r'[\n]', char):
                 row += 1
-                col = 0
+                col = 1
                 index += 1
 
             elif re.search(r'[ \t]', char):
@@ -71,6 +70,10 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
 
         elif state == 1:
             if L.search(char):
@@ -108,6 +111,10 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                     index += 1
                     col += 1
                     state = 0
+                    lex = ''
+                    if re.search(r'[\n]', char):
+                        row += 1
+                        col = 1
 
         elif state == 2:
             if re.search(r"[\n]", char):
@@ -125,6 +132,10 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
 
         elif state == 3:
             if re.search(r"[']", char):
@@ -132,6 +143,16 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 4:
             if re.search(r'["]', char):
                 state = 9
@@ -142,8 +163,18 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 5:
-            if re.search(r'[.]', char):
+            if re.search(r'[\.]', char):
                 state = 10
                 index += 1
                 col += 1
@@ -171,19 +202,23 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 }
                 type_token: TypeToken = switcher.get(lex.lower())
                 tokens.append(TokenEntry(type_token, lex, row, col))
+                lex = ''
+                state = 0
             else:
                 errs.append(ErrorEntry(row, col, char))
                 index += 1
                 col += 1
                 state = 0
-            lex = ''
-            state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 7:
             tokens.append(
                 TokenEntry(TypeToken.COMENTARIO_ONE_LINE, lex, row, col))
             lex = ''
             col = 1
-            row += 1
             state = 0
         elif state == 8:
             if re.search(r"[']", char):
@@ -191,6 +226,16 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 9:
             tokens.append(TokenEntry(TypeToken.STRING, lex, row, col))
             lex = ''
@@ -201,6 +246,16 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 11:
             if E.search(char):
                 state = 13
@@ -213,6 +268,16 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 col = 1
                 row += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 12:
             if D.search(char):
                 index += 1
@@ -237,18 +302,47 @@ def automata(input: str) -> Tuple[Tuple[TokenEntry], Tuple[ErrorEntry]]:
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 15:
             if re.search(r"[']", char):
                 state = 16
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
+
         elif state == 16:
             if re.search(r"[']", char):
                 state = 17
                 index += 1
                 col += 1
                 lex += char
+            else:
+                errs.append(ErrorEntry(row, col, char))
+                index += 1
+                col += 1
+                state = 0
+                lex = ''
+                if re.search(r'[\n]', char):
+                    row += 1
+                    col = 1
 
         elif state == 17:
             tokens.append(
