@@ -1,7 +1,7 @@
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from process.afd import automata
-from process.analizer import Sintactico
+from process.analyzer import Sintactico
 from process.pre_process import pre_process
 from process.helpers import process_file
 
