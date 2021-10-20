@@ -3,6 +3,10 @@ from models.token import TokenEntry
 from models.token_enum import TypeToken
 from statistics import mean
 
+from pandas import DataFrame
+
+from process.helpers import render_data
+
 
 class Extraer:
     def __init__(self, tokens: List[TokenEntry]) -> None:
@@ -69,7 +73,13 @@ class Extraer:
                 count = elements.count(self.lista[i + 4].lexema)
                 print('Conteo de: {} = {}'.format(campo, count))
             elif self.lista[i].token == TypeToken.DATOS:
-                pass
+                data_dict = {}
+                for clave in self.claves:
+                    index = self.claves.index(clave)
+                    elements = list(map(lambda r: r[index], self.registros))
+                    data_dict[clave] = elements
+                data_frame = DataFrame(data=data_dict)
+                print(str(data_frame))
             elif self.lista[i].token == TypeToken.SUMAR:
                 campo = self.lista[i + 2].lexema
                 index = self.claves.index(campo)
@@ -89,5 +99,6 @@ class Extraer:
                 min_value = min(elements)
                 print('Minimo de: {} = {}'.format(campo, min_value))
             elif self.lista[i].token == TypeToken.EXPORTAR_REPORTE:
-                pass
+                titulo = self.lista[i + 2].lexema
+                render_data(titulo, self.claves, self.registros)
             i += 1

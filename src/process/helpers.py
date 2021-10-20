@@ -26,3 +26,20 @@ def process_file(tokens: List[TokenEntry], errs: List[ErrorEntry],
                         extract_names=extract_names))
     html_file.close()
     startfile('reports.html')
+
+
+def render_data(title: str ,keys: List[str], values: List[List]):
+    # data_dict = {}
+    # for clave in keys:
+    #     index = keys.index(clave)
+    #     elements = list(map(lambda r: r[index], values))
+    #     data_dict[clave] = elements
+
+    env = Environment(loader=FileSystemLoader('src/templates'),
+                      autoescape=select_autoescape(['html']))
+    template = env.get_template('app_report.jinja2.html')
+
+    html_file = open('reports_table.html', 'w+', encoding='utf-8')
+    html_file.write(template.render(title=title,headers=keys, records=values))
+    html_file.close()
+    startfile('reports_table.html')

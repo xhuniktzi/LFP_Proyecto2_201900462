@@ -2,7 +2,7 @@ from tkinter import Button, Frame, Text, Tk
 from tkinter.messagebox import showerror, showinfo
 from tkinter.constants import END
 from tkinter.filedialog import askopenfilename
-from typing import List, Tuple
+from typing import List
 from models.error_entry import ErrorEntry, SintaxError
 from models.token import TokenEntry
 from process.afd import automata
