@@ -7,12 +7,14 @@ from models.error_entry import ErrorEntry, SintaxError
 from models.token import TokenEntry
 from process.afd import automata
 from process.analyzer import Sintactico
+from process.extract import Extraer
 from process.helpers import process_file
 from process.pre_process import pre_process
 
 
 class MainApp:
     def __init__(self) -> None:
+
         self.root = Tk()
         self.frame = Frame()
 
@@ -27,7 +29,11 @@ class MainApp:
                command=self.analyze_file).place(x=120, y=10)
         Button(self.frame, text='Reporte en HTML',
                command=self.show_reports).place(x=240, y=10)
-        Button(self.frame, text='Reporte en graphviz').place(x=360, y=10)
+        Button(self.frame,
+               text='Reporte en graphviz',
+               command=self.render_graphviz).place(x=360, y=10)
+        Button(self.frame, text='Ejecutar', command=self.execute).place(x=500,
+                                                                        y=10)
 
         self.file: str = ''
 
@@ -79,6 +85,15 @@ class MainApp:
 
     def show_reports(self):
         process_file(self.valid_tokens, self.lexical_errs, self.sintax_errs)
+
+    def render_graphviz(self):
+        pass
+
+    def execute(self):
+        extract: Extraer = Extraer(self.valid_tokens)
+        extract.extract_claves()
+        extract.extract_registros()
+        extract.extract_commands()
 
 
 if __name__ == '__main__':
