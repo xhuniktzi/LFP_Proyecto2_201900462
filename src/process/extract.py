@@ -10,6 +10,7 @@ class Extraer:
         self.lista.append(TokenEntry(TypeToken.EOF, None, None, None))
         self.claves: List[str] = []
         self.registros: List = []
+        self.output: str = ''
 
     def extract_claves(self):
         i = 0
@@ -56,32 +57,37 @@ class Extraer:
             elif self.lista[i].token == TypeToken.CONTEO:
                 print(len(self.registros))
             elif self.lista[i].token == TypeToken.PROMEDIO:
-                index = self.claves.index(self.lista[i + 2].lexema)
+                campo = self.lista[i + 2].lexema
+                index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 prom = mean(elements)
-                print('Promedio: {}'.format(prom))
+                print('Promedio de: {} = {}'.format(campo, prom))
             elif self.lista[i].token == TypeToken.CONTARSI:
-                index = self.claves.index(self.lista[i + 2].lexema)
+                campo = self.lista[i + 2].lexema
+                index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 count = elements.count(self.lista[i + 4].lexema)
-                print('Conteo: {}'.format(count))
+                print('Conteo de: {} = {}'.format(campo, count))
             elif self.lista[i].token == TypeToken.DATOS:
                 pass
             elif self.lista[i].token == TypeToken.SUMAR:
-                index = self.claves.index(self.lista[i + 2].lexema)
+                campo = self.lista[i + 2].lexema
+                index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 total = sum(elements)
-                print('Suma: {}'.format(total))
+                print('Suma de: {} = {}'.format(campo, total))
             elif self.lista[i].token == TypeToken.MAX:
-                index = self.claves.index(self.lista[i + 2].lexema)
+                campo = self.lista[i + 2].lexema
+                index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 max_value = max(elements)
-                print('Maximo: {}'.format(max_value))
+                print('Maximo de: {} = {}'.format(campo, max_value))
             elif self.lista[i].token == TypeToken.MIN:
-                index = self.claves.index(self.lista[i + 2].lexema)
+                campo = self.lista[i + 2].lexema
+                index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 min_value = min(elements)
-                print('Minimo: {}'.format(min_value))
+                print('Minimo de: {} = {}'.format(campo, min_value))
             elif self.lista[i].token == TypeToken.EXPORTAR_REPORTE:
                 pass
             i += 1
