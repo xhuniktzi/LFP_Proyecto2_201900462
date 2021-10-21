@@ -18,10 +18,10 @@ class MainApp:
         self.root = Tk()
         self.frame = Frame()
 
-        self.root.geometry('980x640')
+        self.root.geometry('1000x640')
         self.root.resizable(0, 0)
         self.frame.place(x=0, y=0)
-        self.frame.config(width=980, height=640)
+        self.frame.config(width=1000, height=640)
 
         Button(self.frame, text='Abrir archivo',
                command=self.load_file).place(x=10, y=10)
@@ -37,11 +37,11 @@ class MainApp:
 
         self.file: str = ''
 
-        self.txt_input = Text(self.frame, width=65, height=32)
+        self.txt_input = Text(self.frame, width=55, height=32)
         self.txt_input.place(x=10, y=60)
 
-        self.txt_console = Text(self.frame, width=50, height=32)
-        self.txt_console.place(x=560, y=60)
+        self.txt_console = Text(self.frame, width=60, height=32)
+        self.txt_console.place(x=490, y=60)
 
         self.valid_str: str = ''
         self.valid_tokens: List[TokenEntry] = []
@@ -94,6 +94,9 @@ class MainApp:
         extract.extract_claves()
         extract.extract_registros()
         extract.extract_commands()
+
+        self.txt_console.delete('1.0', END)
+        self.txt_console.insert(END, extract.output)
 
 
 if __name__ == '__main__':

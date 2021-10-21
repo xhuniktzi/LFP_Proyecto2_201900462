@@ -55,23 +55,28 @@ class Extraer:
         i = 0
         while self.lista[i].token != TypeToken.EOF:
             if self.lista[i].token == TypeToken.IMPRIMIR:
-                print(self.lista[i + 2].lexema, end='')
+                self.add_output(self.lista[i + 2].lexema)
+                # print(, end='')
             elif self.lista[i].token == TypeToken.IMPRIMIRLN:
-                print(self.lista[i + 2].lexema)
+                self.add_output_ln(self.lista[i + 2].lexema)
+                # print(self.lista[i + 2].lexema)
             elif self.lista[i].token == TypeToken.CONTEO:
-                print(len(self.registros))
+                self.add_output_ln(len(self.registros))
+                # print(len(self.registros))
             elif self.lista[i].token == TypeToken.PROMEDIO:
                 campo = self.lista[i + 2].lexema
                 index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 prom = mean(elements)
-                print('Promedio de: {} = {}'.format(campo, prom))
+                self.add_output_ln('Promedio de: {} = {}'.format(campo, prom))
+                # print('Promedio de: {} = {}'.format(campo, prom))
             elif self.lista[i].token == TypeToken.CONTARSI:
                 campo = self.lista[i + 2].lexema
                 index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 count = elements.count(self.lista[i + 4].lexema)
-                print('Conteo de: {} = {}'.format(campo, count))
+                self.add_output_ln('Conteo de: {} = {}'.format(campo, count))
+                # print('Conteo de: {} = {}'.format(campo, count))
             elif self.lista[i].token == TypeToken.DATOS:
                 data_dict = {}
                 for clave in self.claves:
@@ -79,26 +84,40 @@ class Extraer:
                     elements = list(map(lambda r: r[index], self.registros))
                     data_dict[clave] = elements
                 data_frame = DataFrame(data=data_dict)
-                print(str(data_frame))
+                self.add_output_ln(str(data_frame))
+                # print(str(data_frame))
             elif self.lista[i].token == TypeToken.SUMAR:
                 campo = self.lista[i + 2].lexema
                 index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 total = sum(elements)
-                print('Suma de: {} = {}'.format(campo, total))
+                self.add_output_ln('Suma de: {} = {}'.format(campo, total))
+                # print('Suma de: {} = {}'.format(campo, total))
             elif self.lista[i].token == TypeToken.MAX:
                 campo = self.lista[i + 2].lexema
                 index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 max_value = max(elements)
-                print('Maximo de: {} = {}'.format(campo, max_value))
+                self.add_output_ln('Maximo de: {} = {}'.format(
+                    campo, max_value))
+                # print('Maximo de: {} = {}'.format(campo, max_value))
             elif self.lista[i].token == TypeToken.MIN:
                 campo = self.lista[i + 2].lexema
                 index = self.claves.index(campo)
                 elements = list(map(lambda r: r[index], self.registros))
                 min_value = min(elements)
-                print('Minimo de: {} = {}'.format(campo, min_value))
+                self.add_output_ln('Minimo de: {} = {}'.format(
+                    campo, min_value))
+                # print('Minimo de: {} = {}'.format(campo, min_value))
             elif self.lista[i].token == TypeToken.EXPORTAR_REPORTE:
                 titulo = self.lista[i + 2].lexema
+                self.add_output_ln('Exportando reporte ...')
                 render_data(titulo, self.claves, self.registros)
+
             i += 1
+
+    def add_output(self, data: str):
+        self.output += str(data)
+
+    def add_output_ln(self, data: str):
+        self.output += str(data) + '\n'
