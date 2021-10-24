@@ -29,9 +29,9 @@ class MainApp:
                command=self.analyze_file).place(x=120, y=10)
         Button(self.frame, text='Reporte en HTML',
                command=self.show_reports).place(x=240, y=10)
-        Button(self.frame,
-               text='Reporte en graphviz',
-               command=self.render_graphviz).place(x=360, y=10)
+        # Button(self.frame,
+        #        text='Reporte en graphviz',
+        #        command=self.render_graphviz).place(x=360, y=10)
         Button(self.frame, text='Ejecutar', command=self.execute).place(x=500,
                                                                         y=10)
 
@@ -86,8 +86,8 @@ class MainApp:
     def show_reports(self):
         process_file(self.valid_tokens, self.lexical_errs, self.sintax_errs)
 
-    def render_graphviz(self):
-        pass
+    # def render_graphviz(self):
+    #     pass
 
     def execute(self):
         extract: Extraer = Extraer(self.valid_tokens)
